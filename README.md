@@ -1,0 +1,1 @@
+# hamadera-camp2026
