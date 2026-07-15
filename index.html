@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秋のキャンプ 2026 | こども会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#3fb8e0;
+    --sky-deep:#1f8fb8;
+    --sun:#ffcd3c;
+    --grass:#5cb85c;
+    --coral:#ff7a59;
+    --cream:#fffaf0;
+    --ink:#2b3a42;
+    --paper:#ffffff;
+    --line:#e7ddc7;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 10% 0%, rgba(63,184,224,0.12), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(255,205,60,0.18), transparent 45%),
+      var(--cream);
+    color:var(--ink);
+    font-family:"Zen Maru Gothic", sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{
+    font-family:"Yusei Magic", sans-serif;
+    font-weight:400;
+    letter-spacing:.02em;
+  }
+  a{color:var(--sky-deep);}
+  .wrap{max-width:880px;margin:0 auto;padding:0 18px;}
+
+  /* ===== Bunting header ===== */
+  .bunting{
+    display:flex;
+    justify-content:center;
+    overflow:hidden;
+    height:26px;
+    margin-top:10px;
+  }
+  .bunting span{
+    width:0;height:0;
+    border-left:13px solid transparent;
+    border-right:13px solid transparent;
+    border-top:22px solid var(--flag,var(--coral));
+    margin:0 3px;
+    transform:translateY(-2px);
+    animation:sway 2.4s ease-in-out infinite;
+  }
+  .bunting span:nth-child(4n+1){--flag:var(--coral);animation-delay:0s;}
+  .bunting span:nth-child(4n+2){--flag:var(--sun);animation-delay:.2s;}
+  .bunting span:nth-child(4n+3){--flag:var(--grass);animation-delay:.4s;}
+  .bunting span:nth-child(4n+4){--flag:var(--sky);animation-delay:.6s;}
+  @keyframes sway{
+    0%,100%{transform:translateY(-2px) rotate(0deg);}
+    50%{transform:translateY(2px) rotate(3deg);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .bunting span{animation:none;}
+  }
+
+  header.hero{
+    text-align:center;
+    padding:18px 18px 34px;
+  }
+  .eyebrow{
+    display:inline-block;
+    background:var(--sun);
+    color:#5a3d00;
+    font-size:.82rem;
+    font-weight:700;
+    padding:5px 16px;
+    border-radius:999px;
+    margin-bottom:14px;
+    box-shadow:0 3px 0 rgba(0,0,0,.08);
+  }
+  .title{
+    font-size:clamp(2rem, 7vw, 3.2rem);
+    color:var(--sky-deep);
+    text-shadow:3px 3px 0 var(--sun);
+    margin:0 0 8px;
+  }
+  .subtitle{
+    font-size:1.05rem;
+    color:var(--ink);
+    margin:0 0 20px;
+    opacity:.85;
+  }
+  .badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+  }
+  .badge{
+    background:var(--paper);
+    border:2px dashed var(--sky);
+    border-radius:14px;
+    padding:10px 16px;
+    font-size:.9rem;
+    min-width:150px;
+  }
+  .badge b{display:block;font-family:"Yusei Magic";font-size:1.05rem;color:var(--coral);}
+
+  section{
+    background:var(--paper);
+    border-radius:24px;
+    margin:22px 0;
+    padding:26px 20px 30px;
+    box-shadow:0 8px 24px rgba(43,58,66,.06);
+    border:1px solid var(--line);
+    position:relative;
+  }
+  .section-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .section-head .icon{
+    font-size:1.6rem;
+    background:var(--sky);
+    color:#fff;
+    width:44px;height:44px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 3px 0 var(--sky-deep);
+  }
+  .section-head h2{
+    font-size:1.35rem;
+    color:var(--ink);
+    margin:0;
+  }
+  .section-head p{
+    margin:2px 0 0;
+    font-size:.85rem;
+    opacity:.65;
+  }
+
+  /* ===== Day tabs ===== */
+  .day-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .day-tab{
+    flex:1;
+    border:none;
+    cursor:pointer;
+    padding:12px 8px;
+    border-radius:14px;
+    font-family:"Yusei Magic";
+    font-size:.95rem;
+    background:#f1ede0;
+    color:var(--ink);
+    transition:background .2s, color .2s, transform .15s;
+  }
+  .day-tab.active{
+    background:var(--coral);
+    color:#fff;
+    transform:translateY(-2px);
+    box-shadow:0 4px 0 #c9542f;
+  }
+  .day-panel{display:none;}
+  .day-panel.active{display:block;}
+
+  .timeline{
+    position:relative;
+    padding-left:34px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:14px;top:6px;bottom:6px;
+    width:3px;
+    background:repeating-linear-gradient(to bottom, var(--sky) 0 8px, transparent 8px 14px);
+    border-radius:3px;
+  }
+  .t-item{
+    position:relative;
+    padding:0 0 20px 18px;
+  }
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:"";
+    position:absolute;
+    left:-24px;top:2px;
+    width:16px;height:16px;
+    border-radius:50%;
+    background:var(--paper);
+    border:3px solid var(--grass);
+  }
+  .t-item.key::before{border-color:var(--coral);}
+  .t-time{
+    font-weight:700;
+    color:var(--sky-deep);
+    font-size:.95rem;
+  }
+  .t-body{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .t-emoji{font-size:1.3rem;line-height:1;}
+  .t-text b{display:block;font-size:1rem;}
+  .t-text span{font-size:.85rem;opacity:.65;}
+  .t-item.key .t-text b{color:var(--coral);}
+
+  /* ===== Checklist ===== */
+  .check-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:620px){
+    .check-grid{grid-template-columns:1fr;}
+  }
+  .tag-card{
+    background:#fffef8;
+    border:2px solid var(--line);
+    border-radius:16px;
+    padding:18px 16px 16px;
+    position:relative;
+  }
+  .tag-card::before{
+    content:"";
+    position:absolute;
+    top:-10px;left:50%;
+    transform:translateX(-50%);
+    width:34px;height:14px;
+    background:var(--sun);
+    border-radius:3px;
+    box-shadow:0 2px 4px rgba(0,0,0,.15);
+  }
+  .tag-title{
+    font-family:"Yusei Magic";
+    text-align:center;
+    color:var(--sky-deep);
+    margin:6px 0 14px;
+    font-size:1.05rem;
+  }
+  .check-list{list-style:none;margin:0;padding:0;}
+  .check-list li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 4px;
+    border-bottom:1px dashed var(--line);
+    font-size:.98rem;
+  }
+  .check-list li:last-child{border-bottom:none;}
+  .check-list input[type="checkbox"]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:22px;height:22px;
+    flex-shrink:0;
+    border:2px solid var(--grass);
+    border-radius:7px;
+    display:grid;
+    place-content:center;
+    cursor:pointer;
+    background:#fff;
+    transition:background .15s;
+  }
+  .check-list input[type="checkbox"]::before{
+    content:"";
+    width:12px;height:12px;
+    transform:scale(0);
+    transition:transform .12s;
+    box-shadow:inset 1em 1em var(--paper);
+    clip-path:polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 45% 62%);
+  }
+  .check-list input[type="checkbox"]:checked{background:var(--grass);}
+  .check-list input[type="checkbox"]:checked::before{transform:scale(1);}
+  .check-list li.done label{
+    text-decoration:line-through;
+    opacity:.5;
+  }
+  .check-list label{cursor:pointer;}
+
+  /* ===== Map ===== */
+  .map-tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .map-tab{
+    border:2px solid var(--sky);
+    background:#fff;
+    color:var(--sky-deep);
+    border-radius:999px;
+    padding:7px 14px;
+    font-size:.85rem;
+    cursor:pointer;
+    font-weight:700;
+  }
+  .map-tab.active{background:var(--sky);color:#fff;}
+  .map-frame{
+    border:3px dashed var(--sky);
+    border-radius:16px;
+    overflow:hidden;
+    background:#eaf6fb;
+    aspect-ratio:16/10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .map-frame iframe{width:100%;height:100%;border:0;display:none;}
+  .map-frame iframe.active{display:block;}
+  .map-note{
+    font-size:.78rem;
+    opacity:.6;
+    margin-top:8px;
+  }
+
+  footer{
+    text-align:center;
+    font-size:.85rem;
+    opacity:.6;
+    margin-top:30px;
+    padding:0 18px;
+  }
+  .footer-flags{font-size:1.2rem;letter-spacing:6px;}
+</style>
+</head>
+<body>
+
+<div class="bunting" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">浜寺こども会イベント</span>
+    <h1 class="title">秋のわくわくキャンプ！</h1>
+    <p class="subtitle">スケート ⛸️ × ジャグリング 🤹 × お泊まり会 🏕️</p>
+    <div class="badge-row">
+      <div class="badge"><b>📅 開催日</b>2026年10月3日(土)〜4日(日)</div>
+      <div class="badge"><b>🙋 集合</b>10/3 12:45受付 / 13:00集合</div>
+      <div class="badge"><b>👋 解散</b>10/4 9:00（日帰りは10/3 19:00頃）</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ① タイムスケジュール -->
+  <section id="schedule">
+    <div class="section-head">
+      <div class="icon">🗓️</div>
+      <div>
+        <h2>タイムスケジュール</h2>
+        <p>当日の流れをチェックしよう</p>
+      </div>
+    </div>
+
+    <div class="day-tabs">
+      <button class="day-tab active" onclick="showDay(1,this)">10月3日（土）</button>
+      <button class="day-tab" onclick="showDay(2,this)">10月4日（日）</button>
+    </div>
+
+    <div class="day-panel active" id="day1">
+      <div class="timeline">
+        <div class="t-item key">
+          <div class="t-time">12:45〜13:00</div>
+          <div class="t-body"><span class="t-emoji">📝</span><div class="t-text"><b>受付・集合</b><span>羽衣青少年センター体育館</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">13:00〜13:05</div>
+          <div class="t-body"><span class="t-emoji">📣</span><div class="t-text"><b>オリエンテーション</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">13:05〜13:15</div>
+          <div class="t-body"><span class="t-emoji">🚶</span><div class="t-text"><b>徒歩で移動</b><span>臨海スポーツセンターへ</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">13:15〜13:30</div>
+          <div class="t-body"><span class="t-emoji">⛸️</span><div class="t-text"><b>受付・着替え</b><span>スケートシューズに履き替え</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">13:30〜14:10</div>
+          <div class="t-body"><span class="t-emoji">⛸️</span><div class="t-text"><b>スケート教室</b><span>インストラクターが指導</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">14:10〜15:20</div>
+          <div class="t-body"><span class="t-emoji">⛸️</span><div class="t-text"><b>フリー滑走</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">15:20〜15:40</div>
+          <div class="t-body"><span class="t-emoji">👟</span><div class="t-text"><b>着替え</b><span>スケートシューズ返却</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">15:40〜15:55</div>
+          <div class="t-body"><span class="t-emoji">🚶</span><div class="t-text"><b>徒歩で移動</b><span>羽衣青少年センター体育館へ</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">16:00〜17:45</div>
+          <div class="t-body"><span class="t-emoji">🤹</span><div class="t-text"><b>ジャグリングショー・教室</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">18:00〜18:50</div>
+          <div class="t-body"><span class="t-emoji">🍽️</span><div class="t-text"><b>夕食</b><span>大阪国際ユースホステル館内レストラン</span></div></div>
+        </div>
+        <div class="t-item key">
+          <div class="t-time">19:00</div>
+          <div class="t-body"><span class="t-emoji">👋</span><div class="t-text"><b>日帰り参加者 解散</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">19:00〜19:10</div>
+          <div class="t-body"><span class="t-emoji">📣</span><div class="t-text"><b>宿泊者オリエンテーション</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">19:10〜19:30</div>
+          <div class="t-body"><span class="t-emoji">🛏️</span><div class="t-text"><b>ベッドメイキング・入浴準備</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">19:30〜20:30</div>
+          <div class="t-body"><span class="t-emoji">✨</span><div class="t-text"><b>夜のアクティビティ</b><span>ミニ逃走中</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">20:30〜21:30</div>
+          <div class="t-body"><span class="t-emoji">🛁</span><div class="t-text"><b>入浴</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">21:30〜22:00</div>
+          <div class="t-body"><span class="t-emoji">🍙</span><div class="t-text"><b>夜食</b><span>お風呂から上がった人から順に</span></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">22:00〜</div>
+          <div class="t-body"><span class="t-emoji">😴</span><div class="t-text"><b>就寝</b></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-panel" id="day2">
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-time">7:00〜</div>
+          <div class="t-body"><span class="t-emoji">🌅</span><div class="t-text"><b>起床・身支度・部屋の片づけ</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">7:30〜</div>
+          <div class="t-body"><span class="t-emoji">🤸</span><div class="t-text"><b>ラジオ体操</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">7:45〜8:25</div>
+          <div class="t-body"><span class="t-emoji">🍳</span><div class="t-text"><b>朝食</b></div></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">8:25〜</div>
+          <div class="t-body"><span class="t-emoji">🎒</span><div class="t-text"><b>帰り支度・忘れ物チェック</b></div></div>
+        </div>
+        <div class="t-item key">
+          <div class="t-time">9:00</div>
+          <div class="t-body"><span class="t-emoji">👋</span><div class="t-text"><b>解散</b></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 持ち物チェックリスト -->
+  <section id="checklist">
+    <div class="section-head">
+      <div class="icon">🎒</div>
+      <div>
+        <h2>持ち物チェックリスト</h2>
+        <p>忘れ物がないかタップして確認しよう</p>
+      </div>
+    </div>
+
+    <div class="check-grid">
+      <div class="tag-card">
+        <div class="tag-title">👦👧 全員が持ってくるもの</div>
+        <ul class="check-list">
+          <li><input type="checkbox" id="c1"><label for="c1">タオル（汗拭き用）</label></li>
+          <li><input type="checkbox" id="c2"><label for="c2">水筒</label></li>
+          <li><input type="checkbox" id="c3"><label for="c3">上着（アイススケートで必要な人）</label></li>
+          <li><input type="checkbox" id="c4"><label for="c4">参加費</label></li>
+        </ul>
+      </div>
+      <div class="tag-card">
+        <div class="tag-title">🏕️ 宿泊者のみ持ってくるもの</div>
+        <ul class="check-list">
+          <li><input type="checkbox" id="s1"><label for="s1">保険証コピー</label></li>
+          <li><input type="checkbox" id="s2"><label for="s2">部屋着</label></li>
+          <li><input type="checkbox" id="s3"><label for="s3">下着類</label></li>
+          <li><input type="checkbox" id="s4"><label for="s4">着替えを入れる袋</label></li>
+          <li><input type="checkbox" id="s5"><label for="s5">その他必要なもの（薬・化粧水など）</label></li>
+          <li><input type="checkbox" id="s6"><label for="s6">これらを入れるバッグ</label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③④ 会場・地図 -->
+  <section id="access">
+    <div class="section-head">
+      <div class="icon">📍</div>
+      <div>
+        <h2>会場について</h2>
+        <p>タブを切り替えて場所を確認できます</p>
+      </div>
+    </div>
+
+    <div class="map-tabs">
+      <button class="map-tab active" onclick="showMap(0,this)">① 羽衣青少年センター</button>
+      <button class="map-tab" onclick="showMap(1,this)">② 臨海スポーツセンター</button>
+      <button class="map-tab" onclick="showMap(2,this)">③ 大阪国際ユースホステル</button>
+    </div>
+
+    <div class="map-frame">
+      <iframe class="active" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3286.8134288023925!2d135.43045707636722!3d34.53295457297982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000c4bdd1494d9b%3A0x5ccae621e93d7a55!2z5aSn6Ziq5bqcIOe-veiho-mdkuWwkeW5tOOCu-ODs-OCv-ODvA!5e0!3m2!1sja!2sjp!4v1784075437278!5m2!1sja!2sjp" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="羽衣青少年センター"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1673706.3081699617!2d136.3921335349218!3d34.98272592813224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000c495af80610d%3A0xed03b9d645df974a!2z5aSn6Ziq5bqc56uL6Ieo5rW344K544Od44O844OE44K744Oz44K_44O8!5e0!3m2!1sja!2sjp!4v1784075468901!5m2!1sja!2sjp" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="臨海スポーツセンター"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6573.625325975828!2d135.43042807636724!3d34.532973972979676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000c4bdd1528e3f%3A0x97db88bff424e485!2z5aSn6Ziq5Zu96Zqb44Om44O844K544Ob44K544OG44Or!5e0!3m2!1sja!2sjp!4v1784075396059!5m2!1sja!2sjp" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="大阪国際ユースホステル"></iframe>
+    </div>
+    <p class="map-note">タブを切り替えると各会場の地図が表示されます。</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-flags">🏕️ 🍂 ⛸️ 🤹 🍂 🏕️</div>
+  <p>こども会キャンプ運営チーム</p>
+</footer>
+
+<script>
+  function showDay(n, btn){
+    document.querySelectorAll('.day-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('day'+n).classList.add('active');
+  }
+  function showMap(i, btn){
+    document.querySelectorAll('.map-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.map-frame iframe').forEach((f,idx)=>{
+      f.classList.toggle('active', idx===i);
+    });
+    btn.classList.add('active');
+  }
+  document.querySelectorAll('.check-list input[type="checkbox"]').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      cb.closest('li').classList.toggle('done', cb.checked);
+    });
+  });
+</script>
+
+</body>
+</html>
